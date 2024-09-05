@@ -1,0 +1,31 @@
+<div id="formulario">
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="nombre">Nombre:</label>
+      <input id="nombre" type="text" formControlName="nombre">
+      <div *ngIf="contactForm.get('nombre')?.invalid && contactForm.get('nombre')?.touched" class="error-message">
+        El nombre es requerido.
+      </div>
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" type="email" formControlName="email">
+      <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" class="error-message">
+        Por favor, ingresa un email válido.
+      </div>
+    </div>
+    <div>
+      <label for="mensaje">Mensaje:</label>
+      <textarea id="mensaje" formControlName="mensaje"></textarea>
+      <div *ngIf="contactForm.get('mensaje')?.invalid && contactForm.get('mensaje')?.touched" class="error-message">
+        El mensaje es requerido.
+      </div>
+    </div>
+    <button id="boton" type="submit" [disabled]="!contactForm.valid || isSubmitting">
+      {{ isSubmitting ? 'Enviando...' : 'Enviar' }}
+    </button>
+  </form>
+  <div *ngIf="alertMessage" [ngClass]="{'alert': true, 'alert-success': alertType === 'success', 'alert-error': alertType === 'error'}">
+    {{ alertMessage }}
+  </div>
+</div>
